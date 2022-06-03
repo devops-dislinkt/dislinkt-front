@@ -1,0 +1,22 @@
+<div class="row col-md-12 pl-5 pr-0">
+    <div *ngFor="let post of posts" id="postDiv">
+        <div>{{post.username}}</div>
+        <div id="title">{{post.title}}</div>
+        <div id="content">{{post.content}}</div>
+        <img src="{{img}}" id="image" *ngFor="let img of post.images">
+        <br>
+        <div style="margin-top: 20px;">Comments:</div>
+        <div *ngFor="let c of post.comments" id="comment">
+            {{c.username}}: {{c.comment}}
+        </div>
+
+        <button style="margin-top: 20px;" (click)="likePost(post._id)">
+          <mat-icon>thumb_up_alt</mat-icon> {{post.like.length}}
+        </button>
+
+        <button style="margin-top: 20px;" (click)="dislikePost(post._id)">
+          <mat-icon>thumb_down_alt</mat-icon> {{post.dislike.length}}
+        </button>
+
+    </div>
+</div>
