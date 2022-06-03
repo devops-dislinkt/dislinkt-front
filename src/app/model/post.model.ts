@@ -13,4 +13,5 @@ export class Post {
     like: [] = [];
     dislike: [] = [];
     comments: Comment[] = [];
+    date: Date = new Date();
 }

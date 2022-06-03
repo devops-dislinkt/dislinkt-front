@@ -35,3 +35,15 @@ button {
     overflow: hidden;
     outline: none;
 }
+
+.input-group{
+    display: flex
+}
+  
+.input-group > #newcolumn {
+    flex-grow: 8
+}
+  
+.input-group > #addButton {
+    flex-grow: 1
+}
