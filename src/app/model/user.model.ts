@@ -5,5 +5,5 @@ export class UserDto {
     email:  string;
     firstName:  string;
     lastName:  string;
-    role: { id: number };
+    role: 'admin' | 'user';
 }

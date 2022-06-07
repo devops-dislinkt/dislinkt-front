@@ -29,26 +29,26 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  signUp(): void {
+  async signUp() {
 
     const user: UserDto = new UserDto();
     user.username = this.signupForm.value.username;
     user.password = this.signupForm.value.password;
-    user.role = { id: 1 };
+    user.role = 'user'
 
-    console.log(user);
 
-    this.service.signUp(user).subscribe(
-      (response => {
-        if (response !== null) {
-          console.log("sign up successfully");
-          this.router.navigateByUrl('/login');
-        }
-      }),
-      (error => {
-        console.log(error.error.message);
-      })
-    );
+    // this.service.signUp(user).subscribe(
+    //   (response => {
+    //     if (response !== null) {
+    //       console.log("sign up successfully");
+    //       this.router.navigateByUrl('/login');
+    //     }
+    //   }),
+    //   (error => {
+    //     console.log(error.error.message);
+    //   })
+    // );
+    await this.service.signUp(user);
   }
 
 

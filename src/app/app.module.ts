@@ -26,6 +26,8 @@ import { HomeComponent } from './components/home/home.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { PostsComponent } from './components/posts/posts.component';
 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,7 @@ import { PostsComponent } from './components/posts/posts.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-
+    MatSnackBarModule,
     MatDialogModule,
     MatCardModule,
     MatIconModule,
