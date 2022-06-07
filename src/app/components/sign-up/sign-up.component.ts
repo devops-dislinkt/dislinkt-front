@@ -11,31 +11,30 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
 
-  signupForm = this.formBuilder.group({
-    username: ['', [Validators.required, Validators.pattern("")]],
-    firstName: ['', [Validators.required, Validators.pattern("")]],
-    lastName: ['', [Validators.required, Validators.pattern("")]],
-    email: ['', [Validators.required, Validators.pattern("")]],
-    password: ['', [Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")]],
-    passConfirm: ['', Validators.required],
-  },
-  {
-    validator: this.MustMatch('password', 'passConfirm')
-  });
+  signupForm: FormGroup;
 
-  constructor(private service: UserService,
-              private formBuilder: FormBuilder,
-              private router: Router) { }
+  constructor(
+    private service: UserService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) { }
 
-  signUp(): void{
-    
+  ngOnInit(): void {
+    this.signupForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      passConfirm: ['', Validators.required],
+    },
+      { validator: this.MustMatch('password', 'passConfirm') }
+    );
+  }
+
+  signUp(): void {
+
     const user: UserDto = new UserDto();
     user.username = this.signupForm.value.username;
     user.password = this.signupForm.value.password;
-    user.firstName = this.signupForm.value.firstName;
-    user.lastName = this.signupForm.value.lastName;
-    user.email = this.signupForm.value.email;
-    user.role = {id:1}; 
+    user.role = { id: 1 };
 
     console.log(user);
 
@@ -51,8 +50,7 @@ export class SignUpComponent implements OnInit {
       })
     );
   }
-  ngOnInit(): void {
-  }
+
 
   MustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
