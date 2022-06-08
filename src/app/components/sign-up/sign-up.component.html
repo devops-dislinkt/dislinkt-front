@@ -8,51 +8,13 @@
                 class="mt-1 pl-1 inputError">
                 <small>Username is required.</small>
             </div>
-            <div *ngIf="signupForm.controls['username'].errors?.pattern" class="mt-1 pl-1 inputError">
-                <small>Username must start with lowercase letter.</small>
-            </div>
         </div>
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" formControlName="firstName" name="firstName" id="firstName"
-                placeholder="Enter first name" required pattern="[A-Z][a-z]+">
-            <div *ngIf="signupForm.controls['firstName'].touched && signupForm.controls['firstName'].errors?.required"
-                class="mt-1 pl-1 inputError">
-                <small>First Name is required.</small>
-            </div>
-            <div *ngIf="signupForm.controls['firstName'].errors?.pattern" class="mt-1 pl-1 inputError">
-                <small>First Name must start with capital letter.</small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" formControlName="lastName" name="lastName" id="lastName"
-                placeholder="Enter last name" required pattern="[A-Z][a-z]+">
-            <div *ngIf="signupForm.controls['lastName'].touched && signupForm.controls['lastName'].errors?.required"
-                class="mt-1 pl-1 inputError">
-                <small>Last Name is required.</small>
-            </div>
-            <div *ngIf="signupForm.controls['lastName'].errors?.pattern" class="mt-1 pl-1 inputError">
-                <small>Last Name must start with capital letter.</small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" formControlName="email" name="email" id="email"
-                placeholder="Enter email" required pattern="^[a-z0-9._%+-]+@maildrop.cc">
-            <div *ngIf="signupForm.controls['email'].touched && signupForm.controls['email'].errors?.required"
-                class="mt-1 pl-1 inputError">
-                <small>Email is required.</small>
-            </div>
-            <div *ngIf=" signupForm.controls['email'].errors?.pattern " class="mt-1 pl-1 inputError">
-                <small>Wrong email format. Example: "john123@maildrop.cc".</small>
-            </div>
-        </div>
+
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" formControlName="password" name="password" minlength="8"
-                id="password" placeholder="Enter password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-            <div *ngIf="signupForm.controls['password'].errors?.pattern" class="mt-1 pl-1 inputError">
+                id="password" placeholder="Enter password">
+            <div *ngIf="signupForm.controls['password'].touched && signupForm.controls['password'].errors?.minlength" class="mt-1 pl-1 inputError">
                 <small>Password must contain minimum 8 characters, at least one letter and one number.</small>
             </div>
             <div *ngIf="signupForm.controls['password'].touched && signupForm.controls['password'].errors?.required"
