@@ -27,6 +27,7 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 import { PostsComponent } from './components/posts/posts.component';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HomeComponent,
     NavigationBarComponent,
     PostsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
