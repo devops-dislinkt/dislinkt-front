@@ -8,23 +8,18 @@ import { UserService } from '../../services/user.service';
 })
 export class NavigationBarComponent implements OnInit {
 
-  private userLoggedIn: boolean = false;
-  private username: string = '';
-
   constructor(private service: UserService) { }
 
   ngOnInit(): void {
-    let token: string | null = localStorage.getItem("token");
 
-    this.userLoggedIn = token !== null;
   }
 
   logout(): void {
     this.service.logout();
   }
 
-  getUser(): boolean {
-    return this.userLoggedIn;
+  isLoggedIn(): boolean {
+    return this.service.isLoggedIn()
   }
 
   isUser() {
