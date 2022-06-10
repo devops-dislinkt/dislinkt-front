@@ -1,0 +1,19 @@
+
+.btn-green {
+background-color: #5ca35321; 
+color: #5ca356
+}
+
+.actions {
+display: flex;
+align-items: center;
+flex-direction: column;
+}
+
+.full-width {
+width: 100%;
+}
+
+td {
+padding-right: 8px;
+}

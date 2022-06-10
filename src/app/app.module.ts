@@ -27,7 +27,11 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 import { PostsComponent } from './components/posts/posts.component';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ProfileComponent } from './components/profile/profile.component';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,12 +40,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HomeComponent,
     NavigationBarComponent,
     PostsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MatInputModule,
     HttpClientModule,
+    MatFormFieldModule,
     ReactiveFormsModule,
     MatSnackBarModule,
     MatDialogModule,
@@ -63,7 +70,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatMenuModule,
     MatListModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatRadioModule
   ],
   providers: [
     UserService,

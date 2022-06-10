@@ -6,6 +6,7 @@ import { Jwt } from '../model/jwt.model';
 import { UserDto } from '../model/user.model';
 import {Router} from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class UserService {
 
   async signUp(user: UserDto) {
     try {
-      const response = await this.http.post<UserDto>(`${this.path}/users`, user).toPromise();
+      const response = await this.http.post<UserDto>(`${this.path}/users`, user).toPromise()
       this.openSuccessSnackBar(`successfully created user ${user.username}. Please login to continue.`)
       this.router.navigate(['/login']);
       
@@ -33,14 +34,27 @@ export class UserService {
     }
   }
 
-  login(dto: LoginDto): Observable<Jwt> {
-    console.log("login = ", dto)
-    return this.http.post<Jwt>(this.path + '/auth/login', dto);
+  async login(dto: LoginDto | UserDto) {
+    try {
+      const jwt = await this.http.post<string>(`${this.path}/login`, dto).toPromise()
+      localStorage.setItem('token', jwt)
+      const decodedToken = new JwtHelperService().decodeToken(jwt)
+      localStorage.setItem('role', decodedToken.role)
+      localStorage.setItem('username', decodedToken.username)
+      this.openSuccessSnackBar(`successfully logged in.`)
+      this.router.navigate(['/']);
+    }
+    catch (error) {
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()
+    }
   }
 
   logout(): void {
-    localStorage.removeItem("token");
-    this.router.navigate(['/']);
+    localStorage.removeItem("token")
+    localStorage.removeItem('role')
+    localStorage.removeItem('username')
+    this.router.navigate(['/'])
   }
 
   getToken(): string {
