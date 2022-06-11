@@ -1,0 +1,20 @@
+<div>
+    <h1> Search Profiles </h1>
+    <p> Please log in to access more features. </p>
+    <div style="display:flex; align-items: center; justify-content: center;">
+        <form [formGroup]="searchForm" (submit)="search()">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="search" placeholder="Search">
+          </mat-form-field>
+        </form>
+
+        <span style="padding: 1rem"></span>
+        <button mat-icon-button color="primary" 
+        [disabled]="!searchForm.valid"
+        type="submit"
+        (click)="search()"
+        style="transform: scale(2)">
+            <mat-icon>search</mat-icon>
+        </button>
+      </div>
+  </div>
