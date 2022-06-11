@@ -34,6 +34,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { ProfileViewComponent } from './components/profile-view/profile-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     NavigationBarComponent,
     PostsComponent,
     ProfileComponent,
+    ProfileViewComponent,
   ],
   imports: [
     BrowserModule,
