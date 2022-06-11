@@ -32,6 +32,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import {MatRadioModule} from '@angular/material/radio';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatNativeDateModule,
     FormsModule,
+    MatDatepickerModule,
     MatInputModule,
     HttpClientModule,
     MatFormFieldModule,

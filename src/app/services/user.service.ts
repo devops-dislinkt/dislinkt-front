@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { LoginDto } from '../model/login.model';
 import { UserDto } from '../model/user.model';
 import {Router} from "@angular/router";
@@ -11,7 +11,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class UserService {
 
-  private path = 'http://localhost:8080/api';
+  authPath = 'http://localhost:8080/api';
+  profilePath = 'http://localhost:5000/api'
+  // headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + this.getToken()});
+  headers = new HttpHeaders({'user': this.getUsername()})
 
   constructor(
     private http: HttpClient,
@@ -21,7 +24,7 @@ export class UserService {
 
   async getProfileDetails() {
     try {
-      return await this.http.get<UserDto>(`${this.path}/profiles/me`).toPromise();
+      return await this.http.get<UserDto>(`${this.profilePath}/profile/me`, {headers: this.headers}).toPromise();
     } catch (error) {
       throw error;
     }
@@ -29,7 +32,7 @@ export class UserService {
 
   async signUp(user: UserDto) {
     try {
-      const response = await this.http.post<UserDto>(`${this.path}/auth/users`, user).toPromise()
+      const response = await this.http.post<UserDto>(`${this.authPath}/auth/users`, user).toPromise()
       this.openSuccessSnackBar(`successfully created user ${user.username}. Please login to continue.`)
       this.router.navigate(['/login']);
       
@@ -42,7 +45,7 @@ export class UserService {
 
   async login(dto: LoginDto | UserDto) {
     try {
-      const jwt = await this.http.post<string>(`${this.path}/auth/login`, dto).toPromise()
+      const jwt = await this.http.post<string>(`${this.authPath}/auth/login`, dto).toPromise()
       localStorage.setItem('token', jwt)
       const decodedToken = new JwtHelperService().decodeToken(jwt)
       localStorage.setItem('role', decodedToken.role)
