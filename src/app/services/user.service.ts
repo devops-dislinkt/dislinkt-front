@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { LoginDto } from '../model/login.model';
-import { Jwt } from '../model/jwt.model';
 import { UserDto } from '../model/user.model';
 import {Router} from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class UserService {
 
-  private path = 'http://localhost:8090/api';
+  private path = 'http://localhost:8080/api';
 
   constructor(
     private http: HttpClient,
@@ -21,9 +19,17 @@ export class UserService {
     private snackBar: MatSnackBar
   ) { }
 
+  async getProfileDetails() {
+    try {
+      return await this.http.get<UserDto>(`${this.path}/profiles/me`).toPromise();
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async signUp(user: UserDto) {
     try {
-      const response = await this.http.post<UserDto>(`${this.path}/users`, user).toPromise()
+      const response = await this.http.post<UserDto>(`${this.path}/auth/users`, user).toPromise()
       this.openSuccessSnackBar(`successfully created user ${user.username}. Please login to continue.`)
       this.router.navigate(['/login']);
       
@@ -36,7 +42,7 @@ export class UserService {
 
   async login(dto: LoginDto | UserDto) {
     try {
-      const jwt = await this.http.post<string>(`${this.path}/login`, dto).toPromise()
+      const jwt = await this.http.post<string>(`${this.path}/auth/login`, dto).toPromise()
       localStorage.setItem('token', jwt)
       const decodedToken = new JwtHelperService().decodeToken(jwt)
       localStorage.setItem('role', decodedToken.role)
@@ -71,13 +77,13 @@ export class UserService {
 
   isAdmin(): boolean {
     let authority = this.getRole();
-    let role = "ADMIN";
+    let role = "admin";
     return authority === role;
   }
 
   isUser(): boolean {
     let authority = this.getRole();
-    let role = "CLIENT";
+    let role = "user";
     return authority === role;
   }
 
