@@ -46,7 +46,9 @@ export class ProfileService {
         return await this.http.get<Profile>(`${this.profilePublicPath}/profile/details/${username}`).toPromise();
       }
     } catch (error) {
-      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      if (error instanceof HttpErrorResponse) {
+        if (error.error != 'this profile is private') return this.openFailSnackBar(error.error)
+      } 
       else this.openFailSnackBar()
     }
   }

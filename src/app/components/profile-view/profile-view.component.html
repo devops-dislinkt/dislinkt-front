@@ -1,4 +1,9 @@
-<div style="padding-left: 1rem; font-size: 1.2rem;">
+
+<div style="font-size: 2rem; text-align: center;" *ngIf="!profile"> 
+  Private Profile
+</div>
+
+<div style="padding-left: 1rem; font-size: 1.2rem;" *ngIf="profile">
 
   <div class="row">
     <mat-card-title>
