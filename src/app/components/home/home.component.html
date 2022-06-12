@@ -6,9 +6,9 @@
     <div class="jumbotron col-md-10 ml-auto mr-auto bg-light shadow mt-2 float-left pt-3">
       
       <!-- search bar-->
-        <!-- <ng-container *ngIf="!userService.isLoggedIn()"> -->
+        <ng-container *ngIf="route.children.length === 0">
           <app-profile-search></app-profile-search>
-        <!-- </ng-container> -->
+        </ng-container>
       <router-outlet></router-outlet>
     </div>
   </div>
