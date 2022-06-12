@@ -39,8 +39,7 @@ export class ProfileSearchComponent implements OnInit {
     this.profiles = foundProfiles
   }
    visitProfile(profile: Profile) {
-    console.log(profile)
-    // this.router.navigateByUrl(`profile/${profile.id}`)
+    this.router.navigate(['profile', profile.username])
    }
 
 }
