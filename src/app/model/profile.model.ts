@@ -8,7 +8,7 @@ export class Profile {
   email?: string
   role?: 'admin' | 'user'
   phone_number?: string
-  birthday?: Date
+  birthday?: Date | string
   biography?: string
   skills?: string
   interests?: string

@@ -10,10 +10,11 @@ import { UserService } from './user.service';
 })
 export class ProfileService {
 
+
   private profilePublicPath = 'http://localhost:5000';
   private profilePrivatePath = 'http://localhost:5000/api'
   // headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + this.getToken()});
-  
+
 
   constructor(
     private http: HttpClient,
@@ -22,12 +23,24 @@ export class ProfileService {
     private authService: UserService
   ) { }
 
+  async updateBasicInfo(profile: Profile) {
+    try {
+      const headers = new HttpHeaders({ 'user': profile.username })
+      const response = await this.http.put(`${this.profilePrivatePath}/profile/basic-info`, profile, { headers }).toPromise()
+      this.openSuccessSnackBar(`successfully updated.`)
+      return response
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()
+    }
+  }
+
   async getProfileDetails(username: string) {
     try {
       const logged_in_username = this.authService.getUsername()
       if (logged_in_username) {
-        const headers = new HttpHeaders({'user': username})
-        return await this.http.get<Profile>(`${this.profilePublicPath}/profile/details/${username}`, {headers: headers}).toPromise();
+        const headers = new HttpHeaders({ 'user': logged_in_username })
+        return await this.http.get<Profile>(`${this.profilePublicPath}/profile/details/${username}`, { headers: headers }).toPromise();
       }
       else {
         return await this.http.get<Profile>(`${this.profilePublicPath}/profile/details/${username}`).toPromise();
@@ -40,7 +53,14 @@ export class ProfileService {
 
   async searchProfiles(searchString: string) {
     try {
-      return await this.http.get<Profile[]>(`${this.profilePublicPath}/profile/search?username=${searchString}`).toPromise()
+      const logged_in_username = this.authService.getUsername()
+      if (logged_in_username) {
+        const headers = new HttpHeaders({ 'user': logged_in_username })
+        return await this.http.get<Profile[]>(`${this.profilePublicPath}/profile/search?username=${searchString}`, { headers }).toPromise()
+      }
+      else {
+        return await this.http.get<Profile[]>(`${this.profilePublicPath}/profile/search?username=${searchString}`).toPromise()
+      }
     } catch (error) {
       if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
       else this.openFailSnackBar()

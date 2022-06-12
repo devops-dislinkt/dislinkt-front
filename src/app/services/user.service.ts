@@ -5,6 +5,7 @@ import { UserDto } from '../model/user.model';
 import {Router} from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Profile } from '../model/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class UserService {
 
   authPath = 'http://localhost:8080/api';
-  profilePath = 'http://localhost:5000/api'
   // headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + this.getToken()});
   headers = new HttpHeaders({'user': this.getUsername()})
 
@@ -21,6 +21,15 @@ export class UserService {
     private router: Router,
     private snackBar: MatSnackBar
   ) { }
+
+  // TODO: FINISH TESTING
+  async updateUsername(profile: Profile) {
+    try {
+      await this.http.put(`${this.authPath}/users/username`, profile).toPromise()
+    } catch (error) {
+      throw error;
+    }
+  }
 
   async signUp(user: UserDto) {
     try {

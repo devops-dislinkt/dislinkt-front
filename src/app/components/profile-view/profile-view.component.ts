@@ -20,7 +20,6 @@ export class ProfileViewComponent implements OnInit {
   async ngOnInit() {
     const username = String(this.route.snapshot.paramMap.get('username'));
     this.profile = await this.profileService.getProfileDetails(username)
-    console.log(this.profile)
   }
 
   async follow() {

@@ -35,7 +35,6 @@ export class ProfileSearchComponent implements OnInit {
    async search() {
     const searchString = this.searchForm.value.search
     const foundProfiles = await this.profileService.searchProfiles(searchString)
-    console.log(foundProfiles)
     this.profiles = foundProfiles
   }
    visitProfile(profile: Profile) {
