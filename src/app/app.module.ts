@@ -27,7 +27,6 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 import { PostsComponent } from './components/posts/posts.component';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ProfileComponent } from './components/profile/profile.component';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -36,6 +35,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { ProfileViewComponent } from './components/profile-view/profile-view.component';
 import { ProfileSearchComponent } from './components/profile-search/profile-search.component';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,9 +44,9 @@ import { ProfileSearchComponent } from './components/profile-search/profile-sear
     HomeComponent,
     NavigationBarComponent,
     PostsComponent,
-    ProfileComponent,
     ProfileViewComponent,
     ProfileSearchComponent,
+    ProfileEditComponent,
   ],
   imports: [
     BrowserModule,
