@@ -23,4 +23,10 @@ export class ProfileViewComponent implements OnInit {
     console.log(this.profile)
   }
 
+  async follow() {
+
+  }
+  async block() {
+    
+  }
 }
