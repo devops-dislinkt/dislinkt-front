@@ -4,11 +4,11 @@
   </div>
   <div style="display: flex; margin-left: 5%; margin-right: 5%">
     <div class="jumbotron col-md-10 ml-auto mr-auto bg-light shadow mt-2 float-left pt-3">
-
-      <!-- search -->
-        <ng-container *ngIf="!userService.isLoggedIn()">
+      
+      <!-- search bar-->
+        <!-- <ng-container *ngIf="!userService.isLoggedIn()"> -->
           <app-profile-search></app-profile-search>
-        </ng-container>
+        <!-- </ng-container> -->
       <router-outlet></router-outlet>
     </div>
   </div>

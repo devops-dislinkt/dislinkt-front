@@ -1,10 +1,10 @@
 <div>
-  <h1> Search Profiles </h1>
-  <p> Please log in to access more features. </p>
-  <div style="display:flex; align-items: center; justify-content: center;">
+  <!-- <h1> Search Profiles </h1> -->
+  <!-- <p> Please log in to access more features. </p> -->
+  <div style="display:flex; align-items: center; justify-content: center; padding: 1rem;">
     <form [formGroup]="searchForm" (submit)="search()">
       <mat-form-field appearance="outline">
-        <input matInput formControlName="search" placeholder="Search" autocomplete="off">
+        <input matInput formControlName="search" placeholder="Search Profiles" autocomplete="off">
       </mat-form-field>
     </form>
 
@@ -17,17 +17,18 @@
 
   <!-- list of found profiles -->
   <mat-list>
-    
-    <mat-list-item
-      *ngFor="let profile of profiles"
-     (click)="visitProfile(profile)">
+
+    <mat-list-item *ngFor="let profile of profiles" (click)="visitProfile(profile)">
 
       <mat-icon *ngIf="!profile.private">person</mat-icon>
       <mat-icon *ngIf="profile.private">lock_person</mat-icon>
       <!-- name & surname -->
-      <span style="padding-left: 1.4rem;">{{profile.firstName}} {{profile.lastName}}</span>
+      <span style="padding-left: 1.4rem; font-weight: 500; color: indigo">
+        {{profile.username}}
+      </span>
+      <span style="padding-left: 1.4rem;">{{profile.first_name}} {{profile.last_name}}</span>
       <mat-divider></mat-divider>
     </mat-list-item>
-    
+
   </mat-list>
 </div>

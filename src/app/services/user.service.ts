@@ -22,14 +22,6 @@ export class UserService {
     private snackBar: MatSnackBar
   ) { }
 
-  async getProfileDetails() {
-    try {
-      return await this.http.get<UserDto>(`${this.profilePath}/profile/me`, {headers: this.headers}).toPromise();
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async signUp(user: UserDto) {
     try {
       const response = await this.http.post<UserDto>(`${this.authPath}/auth/users`, user).toPromise()

@@ -3,19 +3,19 @@ export class Profile {
   id: number
 
   // basic info
-  first_name: string
-  last_name: string
-  email: string
-  role: 'admin' | 'user'
-  phone_number: string
-  birthday: Date
-  biography: string
-  skills: string
-  interests: string
-  private: boolean
+  first_name?: string
+  last_name?: string
+  email?: string
+  role?: 'admin' | 'user'
+  phone_number?: string
+  birthday?: Date
+  biography?: string
+  skills?: string
+  interests?: string
+  private?: boolean
 
   // work experience
-  work_experience: {
+  work_experience?: {
     title: string
     type: 'FULL_TIME' | 'PART_TIME' | 'INTERNSHIP' | 'FREELANCE' | 'CONTRACT'
     company: string
@@ -26,7 +26,7 @@ export class Profile {
   }
 
   // education
-  education: {
+  education?: {
     school: string
     degree: string
     field_of_study: string
