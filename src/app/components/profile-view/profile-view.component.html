@@ -1,1 +1,102 @@
-<p>profile-view works!</p>
+<div style="text-align: center;">
+    <div >
+        <div style="font-weight: 200; font-size: 2rem;">
+            {{profile?.first_name}}Pera Peric{{profile?.last_name}}
+        </div>
+        <div class="row" style="justify-content: center;">
+            <mat-icon mat-card-avatar color="primary" class="material-icons-outlined">
+                {{profile?.private ? 'lock_person' : 'person'}}
+            </mat-icon>
+            <mat-card-subtitle>{{profile?.username}}</mat-card-subtitle>
+        </div>
+    </div>
+
+    <div style="padding-left: 1rem; font-size: 1.2rem;">
+        <!-- basic info -->
+        <div class="row">
+            <mat-icon class="material-icons-outlined">email</mat-icon>
+            {{profile?.email}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">phone</mat-icon>
+            {{profile?.phone_number}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">event</mat-icon>
+            {{profile?.birthday}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">description</mat-icon>
+            {{profile?.biography}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">work_outline</mat-icon>
+            {{profile?.skills}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">interests</mat-icon>
+            {{profile?.interests}} 
+        </div>
+
+        <mat-divider style="margin-top: 1rem; margin-bottom: 1rem;"></mat-divider>
+        <mat-card-title>Work Experience</mat-card-title>
+
+        <!-- work experience -->
+        <div class="row">
+            <mat-icon class="material-icons-outlined">title</mat-icon>
+            {{profile?.work_experience[0]?.title}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">badge</mat-icon>
+            {{profile?.work_experience[0]?.type}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">business</mat-icon>
+            {{profile?.work_experience[0]?.company}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">place</mat-icon>
+            {{profile?.work_experience[0]?.location}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">
+                {{profile?.work_experience[0]?.currently_working ? 'check': 'close'}}
+            </mat-icon>
+            currently working
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">date_range</mat-icon>
+            {{profile?.work_experience[0]?.start_date}} - {{profile?.work_experience[0]?.end_date}} 
+        </div>
+
+
+        <mat-divider style="margin-top: 1rem; margin-bottom: 1rem;"></mat-divider>
+        <mat-card-title>Education</mat-card-title>
+
+        <div class="row">
+            <mat-icon class="material-icons-outlined">school</mat-icon>
+            {{profile?.education[0]?.school}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">workspace_premium</mat-icon>
+            {{profile?.education[0]?.degree}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">science</mat-icon>
+            {{profile?.education[0]?.field_of_study}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">description</mat-icon>
+            {{profile?.education[0]?.description}} 
+        </div>
+        <div class="row">
+            <mat-icon class="material-icons-outlined">date_range</mat-icon>
+            {{profile?.education[0]?.start_date}} - {{profile?.education[0]?.end_date}} 
+        </div>
+    </div>
+
+
+
+
+
+</div>

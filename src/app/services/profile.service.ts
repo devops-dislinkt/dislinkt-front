@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -10,10 +10,10 @@ import { UserService } from './user.service';
 })
 export class ProfileService {
 
-  profilePublicPath = 'http://localhost:5000';
-  profilePrivatePath = 'http://localhost:5000/api'
+  private profilePublicPath = 'http://localhost:5000';
+  private profilePrivatePath = 'http://localhost:5000/api'
   // headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + this.getToken()});
-  headers = new HttpHeaders({'user': this.authService.getUsername()})
+  
 
   constructor(
     private http: HttpClient,
@@ -22,11 +22,19 @@ export class ProfileService {
     private authService: UserService
   ) { }
 
-  async getProfileDetails() {
+  async getProfileDetails(username: string) {
     try {
-      return await this.http.get<Profile>(`${this.profilePrivatePath}/profile/me`, {headers: this.headers}).toPromise();
+      const logged_in_username = this.authService.getUsername()
+      if (logged_in_username) {
+        const headers = new HttpHeaders({'user': username})
+        return await this.http.get<Profile>(`${this.profilePublicPath}/profile/details/${username}`, {headers: headers}).toPromise();
+      }
+      else {
+        return await this.http.get<Profile>(`${this.profilePublicPath}/profile/details/${username}`).toPromise();
+      }
     } catch (error) {
-      throw error;
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()
     }
   }
 
@@ -34,7 +42,23 @@ export class ProfileService {
     try {
       return await this.http.get<Profile[]>(`${this.profilePublicPath}/profile/search?username=${searchString}`).toPromise()
     } catch (error) {
-      throw error
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()
     }
+  }
+
+  openSuccessSnackBar(message: string): void {
+    this.snackBar.open(message, 'Dismiss', {
+      verticalPosition: 'top',
+      panelClass: ['green-snackbar'],
+      duration: 4000,
+    });
+  }
+  openFailSnackBar(message = 'Something went wrong.'): void {
+    this.snackBar.open(message, 'Dismiss', {
+      verticalPosition: 'top',
+      panelClass: ['red-snackbar'],
+      duration: 4000,
+    });
   }
 }
