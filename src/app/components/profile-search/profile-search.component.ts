@@ -12,11 +12,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 export class ProfileSearchComponent implements OnInit {
   
   searchForm: FormGroup
-  profiles: Profile[] = [
-    {'first_name': 'pera', 'last_name': 'petrovic', 'email': 'asdf@gmail.com', username: 'pera', id: 1, private: false, role: 'user'},
-    {'first_name': 'mika', 'last_name': 'mikic', 'email': 'asdf@gmail.com', username: 'pera', id: 1, private: true, role: 'user'},
-
-  ]
+  profiles: Profile[] = []
 
   constructor(
     public fb: FormBuilder,
