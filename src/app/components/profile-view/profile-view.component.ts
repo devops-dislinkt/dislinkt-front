@@ -11,7 +11,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileViewComponent implements OnInit {
 
-  profile: Profile
+
+  profile: Profile // profile to display
 
   constructor(
     private route: ActivatedRoute,
@@ -22,7 +23,8 @@ export class ProfileViewComponent implements OnInit {
   async ngOnInit() {
     const username = String(this.route.snapshot.paramMap.get('username'));
     const response = await this.profileService.getProfileDetails(username)
-    if (response instanceof Profile) this.profile = response
+
+    this.profile = response
   }
 
   async follow() {
