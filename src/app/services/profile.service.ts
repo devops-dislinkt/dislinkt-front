@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Profile, WorkExperience } from '../model/profile.model';
+import { Education, Profile, WorkExperience } from '../model/profile.model';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -22,6 +22,20 @@ export class ProfileService {
     private snackBar: MatSnackBar,
     private authService: UserService
   ) { }
+
+  
+  async updateEducation(username: string, education: Education) {
+    try {
+      const headers = new HttpHeaders({'user': username})
+      const response = await this.http.put(`${this.profilePrivatePath}/profile/education`, education, {headers}).toPromise()
+      this.openSuccessSnackBar(`successfully updated education.`)
+      return response
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()
+    }
+  }
+
 
   async updateWorkExperience(username: string, workExperience: WorkExperience) {
     try {

@@ -2,13 +2,11 @@
 
   <!-- username -->
   <div class="row" style="align-items: center">
-    <form [formGroup]="usernameForm">
       <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
-        <input matInput formControlName="username" required>
+        <input matInput [(ngModel)]="profile.username" required>
       </mat-form-field>
-    </form>
-    <button mat-button color="accent" (click)="updateUsername()" [disabled]="!usernameForm.valid">
+    <button mat-button color="accent" (click)="updateUsername()" [disabled]="!profile.username">
       Update Username
     </button>
   </div>
@@ -151,38 +149,37 @@
   <!-- education -->
   <div class="row">
     <mat-card-title>Education</mat-card-title>
-    <button mat-flat-button color="accent" (click)="updateEducation()" [disabled]="!educationForm.valid">
+    <button mat-flat-button color="accent" (click)="updateEducation()" [disabled]="!education.school">
       Update
     </button>
   </div>
 
   <mat-card-content>
-    <form [formGroup]="educationForm">
 
       <div class="row">
         <mat-form-field appearance="fill">
           <mat-label>school</mat-label>
-          <input matInput formControlName="school" required>
+          <input matInput [(ngModel)]="education.school" required>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>degree</mat-label>
-          <input matInput formControlName="degree">
+          <input matInput [(ngModel)]="education.degree">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>field of study</mat-label>
-          <input matInput formControlName="field_of_study">
+          <input matInput [(ngModel)]="education.field_of_study">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>description</mat-label>
-          <input matInput formControlName="description">
+          <input matInput [(ngModel)]="education.description">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Start Date</mat-label>
-          <input matInput [matDatepicker]="picker_edu_start" formControlName="start_date">
+          <input matInput [matDatepicker]="picker_edu_start" [(ngModel)]="education.start_date">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker_edu_start"></mat-datepicker-toggle>
           <mat-datepicker #picker_edu_start></mat-datepicker>
@@ -190,13 +187,12 @@
 
         <mat-form-field appearance="fill">
           <mat-label>End Date</mat-label>
-          <input matInput [matDatepicker]="picker_edu_end" formControlName="end_date">
+          <input matInput [matDatepicker]="picker_edu_end" [(ngModel)]="education.end_date">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker_edu_end"></mat-datepicker-toggle>
           <mat-datepicker #picker_edu_end></mat-datepicker>
         </mat-form-field>
 
       </div>
-    </form>
   </mat-card-content>
 </div>
