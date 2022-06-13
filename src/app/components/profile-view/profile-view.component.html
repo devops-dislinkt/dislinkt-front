@@ -11,7 +11,7 @@
     </mat-card-title>
 
     <!-- actions -->
-    <div style="margin-left: auto" *ngIf="usernameToFind !== profile.username">
+    <div style="margin-left: auto" *ngIf="profile.username !== userService.getUsername()">
       <button mat-button (click)="follow()">
         <mat-icon style="color: green;">{{true ? 'person_add': 'person_remove'}}</mat-icon>
         follow
