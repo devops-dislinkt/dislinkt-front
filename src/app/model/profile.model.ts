@@ -15,23 +15,27 @@ export class Profile {
   private?: boolean
 
   // work experience
-  work_experience?: {
-    title: string
-    type: 'FULL_TIME' | 'PART_TIME' | 'INTERNSHIP' | 'FREELANCE' | 'CONTRACT'
-    company: string
-    location: string
-    currently_working: string
-    start_date: Date
-    end_date: Date
-  }
+  work_experience?: WorkExperience
 
   // education
-  education?: {
-    school: string
-    degree: string
-    field_of_study: string
-    start_date: Date
-    end_date: Date
-    description: string
-  }
+  education?: Education
+}
+
+export class WorkExperience {
+  title: string
+  type: 'FULL_TIME' | 'PART_TIME' | 'INTERNSHIP' | 'FREELANCE' | 'CONTRACT'
+  company: string
+  location: string
+  currently_working: string
+  start_date: Date | string
+  end_date: Date | string
+}
+
+export class Education {
+  school: string
+  degree: string
+  field_of_study: string
+  start_date: Date | string
+  end_date: Date | string
+  description: string
 }

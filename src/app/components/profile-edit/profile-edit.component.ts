@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Profile } from 'src/app/model/profile.model';
+import { Profile, WorkExperience } from 'src/app/model/profile.model';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileEditComponent implements OnInit {
 
   profile: Profile = new Profile()
+  workExperience = new WorkExperience()
   basicInfoForm: FormGroup
   workExperienceForm: FormGroup  
   educationForm: FormGroup
@@ -24,15 +25,6 @@ export class ProfileEditComponent implements OnInit {
     private userService: UserService,
     private profileService: ProfileService,
   ) {
-    this.workExperienceForm = this.fb.group({
-      "title": ['', Validators.required],
-      "type": [''],
-      "company": [''],
-      "location": [''],
-      "currently_working":  [''],
-      "start_date":  [''],
-      "end_date":  [''],
-    })
 
     this.educationForm = this.fb.group({
       "school": ['', Validators.required],
@@ -51,7 +43,7 @@ export class ProfileEditComponent implements OnInit {
   async ngOnInit() {
     const username = this.userService.getUsername()
     this.profile = await this.profileService.getProfileDetails(username)
-    this.updateForms()
+    if (this.profile.work_experience[0]) this.workExperience = this.profile.work_experience[0]
   }
 
   updateBasicInfo() {
@@ -62,7 +54,14 @@ export class ProfileEditComponent implements OnInit {
   }
 
   updateWorkExperience() {
-
+    this.profile.work_experience = this.workExperience
+    if (this.workExperience.start_date instanceof Date) 
+      this.workExperience.start_date = this.workExperience.start_date.toLocaleDateString('en-CA')
+    if (this.workExperience.end_date instanceof Date) 
+      this.workExperience.end_date = this.workExperience.end_date.toLocaleDateString('en-CA')
+    
+    this.profileService.updateWorkExperience(this.profile.username,this.workExperience)
+    
   }
 
   updateEducation() {
@@ -76,15 +75,6 @@ export class ProfileEditComponent implements OnInit {
   
   private updateForms() {
 
-    this.workExperienceForm = this.fb.group({
-      "title": [this.profile.work_experience.title, Validators.required],
-      "type": [this.profile.work_experience.type],
-      "company": [this.profile.work_experience.company],
-      "location": [this.profile.work_experience.location],
-      "currently_working":  [this.profile.work_experience.currently_working],
-      "start_date":  [this.profile.work_experience.start_date],
-      "end_date":  [this.profile.work_experience.end_date],
-    })
 
     this.educationForm = this.fb.group({
       "school": [this.profile.education.school, Validators.required],
