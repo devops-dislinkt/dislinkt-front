@@ -23,7 +23,32 @@ export class ProfileService {
     private authService: UserService
   ) { }
 
+  async blockProfile(profile: Profile) {
+    try {
+      const headers = new HttpHeaders({'user': this.authService.getUsername()})
+      const data = {'profile_to_block': profile.username}
+      const response = await this.http.put(`${this.profilePrivatePath}/profile/block`, data, {headers}).toPromise()
+      this.openSuccessSnackBar(`successfully blocked: ${profile.username}`)
+      return response  
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()
+    }
+  }
 
+  async isProfileBlockedByMe(profile: Profile) {
+    try {
+      console.log(profile)
+      if (!this.authService.isLoggedIn()) return false;
+      const headers = new HttpHeaders({'user': this.authService.getUsername()})
+      const response = await this.http.get<boolean>(`${this.profilePrivatePath}/profile/is-blocked-by-me/${profile.username}`, {headers}).toPromise()
+      return response  
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()
+      throw error
+    }
+  }
   
   async updateEducation(education: Education) {
     try {
@@ -61,7 +86,7 @@ export class ProfileService {
     }
   }
 
-  async getProfileDetails(username: string) {
+  async getProfileDetails(username: string): Promise<Profile> | undefined {
     try {
       const logged_in_username = this.authService.getUsername()
       if (logged_in_username) {

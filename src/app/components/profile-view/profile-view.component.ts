@@ -12,7 +12,8 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileViewComponent implements OnInit {
 
 
-  profile: Profile // profile to display
+  profile: Profile | undefined // profile to display
+  isBlockedByMe: boolean = false
 
   constructor(
     private route: ActivatedRoute,
@@ -21,16 +22,17 @@ export class ProfileViewComponent implements OnInit {
     ) { }
 
   async ngOnInit() {
-    const username = String(this.route.snapshot.paramMap.get('username'));
-    const response = await this.profileService.getProfileDetails(username)
+    const username = String(this.route.snapshot.paramMap.get('username'))
+      this.profile = await this.profileService.getProfileDetails(username)
+      if (this.profile) this.isBlockedByMe = await this.profileService.isProfileBlockedByMe(this.profile)
 
-    this.profile = response
   }
 
   async follow() {
 
   }
   async block() {
-    
+    await this.profileService.blockProfile(this.profile)
+    this.isBlockedByMe = await this.profileService.isProfileBlockedByMe(this.profile)
   }
 }

@@ -1,10 +1,9 @@
 
 <div style="font-size: 2rem; text-align: center;" *ngIf="!profile"> 
-  Private Profile
+  Profile not found
 </div>
 
 <div style="padding-left: 1rem; font-size: 1.2rem;" *ngIf="profile">
-
   <div class="row">
     <mat-card-title>
       {{profile?.first_name}} {{profile?.last_name}}
@@ -12,15 +11,20 @@
 
 
     <!-- actions -->
-    <div style="margin-left: auto" *ngIf="userService.isLoggedIn() && (profile.username !== userService.getUsername())">
+    <div style="margin-left: auto" *ngIf="userService.isLoggedIn() && (profile.username !== userService.getUsername()) && !isBlockedByMe">
       <button mat-button (click)="follow()">
         <mat-icon style="color: green;">{{true ? 'person_add': 'person_remove'}}</mat-icon>
         follow
       </button>
-      <button mat-button (click)="block()">
+      <button mat-button (click)="block()" *ngIf="!isBlockedByMe">
         <mat-icon style="color: crimson">block</mat-icon>
         block
       </button>
+    </div>
+
+    <div *ngIf="isBlockedByMe" style="align-items: center; display: flex; margin-left: auto; color: silver; font-size: small;">
+      Blocked by me
+      <mat-icon style="color: rgb(183, 135, 144)">block</mat-icon>
     </div>
 
   </div>
