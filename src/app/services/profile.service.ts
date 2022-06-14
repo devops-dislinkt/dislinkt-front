@@ -23,10 +23,11 @@ export class ProfileService {
     private authService: UserService
   ) { }
 
+
   
-  async updateEducation(username: string, education: Education) {
+  async updateEducation(education: Education) {
     try {
-      const headers = new HttpHeaders({'user': username})
+      const headers = new HttpHeaders({'user': this.authService.getUsername()})
       const response = await this.http.put(`${this.profilePrivatePath}/profile/education`, education, {headers}).toPromise()
       this.openSuccessSnackBar(`successfully updated education.`)
       return response
@@ -37,9 +38,9 @@ export class ProfileService {
   }
 
 
-  async updateWorkExperience(username: string, workExperience: WorkExperience) {
+  async updateWorkExperience(workExperience: WorkExperience) {
     try {
-      const headers = new HttpHeaders({'user': username})
+      const headers = new HttpHeaders({'user': this.authService.getUsername()})
       const response = await this.http.put(`${this.profilePrivatePath}/profile/work-experience`, workExperience, {headers}).toPromise()
       this.openSuccessSnackBar(`successfully updated work experience.`)
       return response

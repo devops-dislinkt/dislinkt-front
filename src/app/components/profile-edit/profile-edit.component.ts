@@ -44,7 +44,7 @@ export class ProfileEditComponent implements OnInit {
     if (this.workExperience.end_date instanceof Date) 
       this.workExperience.end_date = this.workExperience.end_date.toLocaleDateString('en-CA')
     
-    this.profileService.updateWorkExperience(this.profile.username,this.workExperience)
+    this.profileService.updateWorkExperience(this.workExperience)
     
   }
 
@@ -54,7 +54,7 @@ export class ProfileEditComponent implements OnInit {
     if (this.education.end_date instanceof Date) 
       this.education.end_date = this.education.end_date.toLocaleDateString('en-CA')
     
-      this.profileService.updateEducation(this.profile.username, this.education)
+      this.profileService.updateEducation(this.education)
   }
 
   updateUsername() {
