@@ -19,6 +19,9 @@ export class Profile {
 
   // education
   education?: Education
+
+  // additional fields
+  isFollowReqApprovedByMe: boolean
 }
 
 export class WorkExperience {

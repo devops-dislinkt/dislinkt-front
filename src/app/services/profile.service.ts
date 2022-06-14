@@ -22,7 +22,7 @@ export class ProfileService {
     private snackBar: MatSnackBar,
     private authService: UserService
   ) { }
-
+    
   async blockProfile(profile: Profile) {
     try {
       const headers = new HttpHeaders({'user': this.authService.getUsername()})
