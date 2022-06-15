@@ -1,0 +1,10 @@
+.row {
+    display: flex;
+    align-items: center;
+    column-gap: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+mat-icon {
+    color: indigo;
+}

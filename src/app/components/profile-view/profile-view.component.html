@@ -1,0 +1,141 @@
+
+<div style="font-size: 2rem; text-align: center;" *ngIf="!profile"> 
+  Profile not found
+</div>
+
+<div style="padding-left: 1rem; font-size: 1.2rem;" *ngIf="profile">
+  <div class="row">
+    <mat-card-title>
+      {{profile?.first_name}} {{profile?.last_name}}
+    </mat-card-title>
+
+
+    <!-- actions -->
+    <div style="margin-left: auto" *ngIf="userService.isLoggedIn() && (profile.username !== userService.getUsername()) && !isBlockedByMe">
+      
+      <span *ngIf="followRequestStatus=='NOT_SENT'">
+        <button mat-button (click)="follow()">
+          <mat-icon style="color: green;">person_add</mat-icon>
+          follow
+        </button>
+      </span>
+
+      <span *ngIf="followRequestStatus=='SENT'">
+        <button mat-button [disabled]="true">
+          <mat-icon style="color: rgb(161, 182, 161);">person_add</mat-icon>
+          request sent
+        </button>
+      </span>
+      
+      
+      <span *ngIf="followRequestStatus=='APPROVED'" style="font-size: small;">
+        <mat-icon style="color: rgb(61, 123, 199); vertical-align: sub;">check</mat-icon>
+        following
+      </span>
+
+      <button mat-button (click)="block()" *ngIf="!isBlockedByMe">
+        <mat-icon style="color: crimson">block</mat-icon>
+        block
+      </button>
+    </div>
+
+    <div *ngIf="isBlockedByMe" style="align-items: center; display: flex; margin-left: auto; color: silver; font-size: small;">
+      Blocked by me
+      <mat-icon style="color: rgb(183, 135, 144)">block</mat-icon>
+    </div>
+
+  </div>
+
+  <div>
+    <!-- basic info -->
+    <div class="row">
+      <mat-icon class="material-icons-outlined">{{profile?.private ? 'lock_person' : 'person'}}</mat-icon>
+      {{profile?.username}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">email</mat-icon>
+      {{profile?.email}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">phone</mat-icon>
+      {{profile?.phone_number}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">event</mat-icon>
+      {{profile?.birthday}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">description</mat-icon>
+      {{profile?.biography}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">work_outline</mat-icon>
+      {{profile?.skills}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">interests</mat-icon>
+      {{profile?.interests}}
+    </div>
+
+    <mat-divider style="margin-top: 1rem; margin-bottom: 1rem;"></mat-divider>
+    <mat-card-title>Work Experience</mat-card-title>
+
+    <!-- work experience -->
+    <div class="row">
+      <mat-icon class="material-icons-outlined">title</mat-icon>
+      {{profile?.work_experience[0]?.title}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">badge</mat-icon>
+      {{profile?.work_experience[0]?.type}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">business</mat-icon>
+      {{profile?.work_experience[0]?.company}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">place</mat-icon>
+      {{profile?.work_experience[0]?.location}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">
+        {{profile?.work_experience[0]?.currently_working ? 'check': 'close'}}
+      </mat-icon>
+      currently working
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">date_range</mat-icon>
+      {{profile?.work_experience[0]?.start_date}} - {{profile?.work_experience[0]?.end_date}}
+    </div>
+
+
+    <mat-divider style="margin-top: 1rem; margin-bottom: 1rem;"></mat-divider>
+    <mat-card-title>Education</mat-card-title>
+
+    <div class="row">
+      <mat-icon class="material-icons-outlined">school</mat-icon>
+      {{profile?.education[0]?.school}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">workspace_premium</mat-icon>
+      {{profile?.education[0]?.degree}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">science</mat-icon>
+      {{profile?.education[0]?.field_of_study}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">description</mat-icon>
+      {{profile?.education[0]?.description}}
+    </div>
+    <div class="row">
+      <mat-icon class="material-icons-outlined">date_range</mat-icon>
+      {{profile?.education[0]?.start_date}} - {{profile?.education[0]?.end_date}}
+    </div>
+  </div>
+
+
+
+
+
+</div>

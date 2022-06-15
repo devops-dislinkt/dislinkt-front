@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { LoginDto } from '../model/login.model';
-import { Jwt } from '../model/jwt.model';
 import { UserDto } from '../model/user.model';
 import {Router} from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Profile } from '../model/profile.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private path = 'http://localhost:8090/api';
+  authPath = 'http://localhost:8080/api';
+  // headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + this.getToken()});
+  headers = new HttpHeaders({'user': this.getUsername()})
 
   constructor(
     private http: HttpClient,
@@ -21,9 +22,18 @@ export class UserService {
     private snackBar: MatSnackBar
   ) { }
 
+  // TODO: FINISH TESTING
+  async updateUsername(profile: Profile) {
+    try {
+      await this.http.put(`${this.authPath}/users/username`, profile).toPromise()
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async signUp(user: UserDto) {
     try {
-      const response = await this.http.post<UserDto>(`${this.path}/users`, user).toPromise()
+      const response = await this.http.post<UserDto>(`${this.authPath}/auth/users`, user).toPromise()
       this.openSuccessSnackBar(`successfully created user ${user.username}. Please login to continue.`)
       this.router.navigate(['/login']);
       
@@ -36,7 +46,7 @@ export class UserService {
 
   async login(dto: LoginDto | UserDto) {
     try {
-      const jwt = await this.http.post<string>(`${this.path}/login`, dto).toPromise()
+      const jwt = await this.http.post<string>(`${this.authPath}/auth/login`, dto).toPromise()
       localStorage.setItem('token', jwt)
       const decodedToken = new JwtHelperService().decodeToken(jwt)
       localStorage.setItem('role', decodedToken.role)
@@ -71,13 +81,13 @@ export class UserService {
 
   isAdmin(): boolean {
     let authority = this.getRole();
-    let role = "ADMIN";
+    let role = "admin";
     return authority === role;
   }
 
   isUser(): boolean {
     let authority = this.getRole();
-    let role = "CLIENT";
+    let role = "user";
     return authority === role;
   }
 
