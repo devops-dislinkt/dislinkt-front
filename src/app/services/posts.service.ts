@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PostsService {
 
-  private path = 'http://localhost:8080/api';
+  private path = 'http://localhost:8070/api';
   private getPostsPath = this.path + '/list';
   private likePostPath = this.path + '/like';
   private dislikePostPath = this.path + '/dislike';
