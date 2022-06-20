@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 import { ProfileViewComponent } from './components/profile-view/profile-view.component';
+import { PostsCreateComponent } from './components/posts-create/posts-create.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,11 +15,12 @@ const routes: Routes = [
     path: '', component: HomeComponent,
     children: [
       { path: 'posts', component: PostsComponent },
+      { path: 'posts-create', component: PostsCreateComponent},
       { path: 'edit-profile', component: ProfileEditComponent},
       {
         path: 'profile/:username',
         component: ProfileViewComponent,
-      }
+      },
     ]
   },
 ];

@@ -36,6 +36,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { ProfileViewComponent } from './components/profile-view/profile-view.component';
 import { ProfileSearchComponent } from './components/profile-search/profile-search.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { PostsCreateComponent } from './components/posts-create/posts-create.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +49,7 @@ import { ProfileEditComponent } from './components/profile-edit/profile-edit.com
     ProfileViewComponent,
     ProfileSearchComponent,
     ProfileEditComponent,
+    PostsCreateComponent,
   ],
   imports: [
     BrowserModule,
