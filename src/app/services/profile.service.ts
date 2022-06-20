@@ -38,7 +38,6 @@ export class ProfileService {
 
   async isProfileBlockedByMe(profile: Profile) {
     try {
-      console.log(profile)
       if (!this.authService.isLoggedIn()) return false;
       const headers = new HttpHeaders({'user': this.authService.getUsername()})
       const response = await this.http.get<boolean>(`${this.profilePrivatePath}/profile/is-blocked-by-me/${profile.username}`, {headers}).toPromise()

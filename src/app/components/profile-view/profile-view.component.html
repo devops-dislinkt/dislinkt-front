@@ -1,5 +1,4 @@
-
-<div style="font-size: 2rem; text-align: center;" *ngIf="!profile"> 
+<div style="font-size: 2rem; text-align: center;" *ngIf="!profile">
   Profile not found
 </div>
 
@@ -11,8 +10,9 @@
 
 
     <!-- actions -->
-    <div style="margin-left: auto" *ngIf="userService.isLoggedIn() && (profile.username !== userService.getUsername()) && !isBlockedByMe">
-      
+    <div style="margin-left: auto"
+      *ngIf="userService.isLoggedIn() && (profile.username !== userService.getUsername()) && !isBlockedByMe">
+
       <span *ngIf="followRequestStatus=='NOT_SENT'">
         <button mat-button (click)="follow()">
           <mat-icon style="color: green;">person_add</mat-icon>
@@ -26,8 +26,8 @@
           request sent
         </button>
       </span>
-      
-      
+
+
       <span *ngIf="followRequestStatus=='APPROVED'" style="font-size: small;">
         <mat-icon style="color: rgb(61, 123, 199); vertical-align: sub;">check</mat-icon>
         following
@@ -39,7 +39,8 @@
       </button>
     </div>
 
-    <div *ngIf="isBlockedByMe" style="align-items: center; display: flex; margin-left: auto; color: silver; font-size: small;">
+    <div *ngIf="isBlockedByMe"
+      style="align-items: center; display: flex; margin-left: auto; color: silver; font-size: small;">
       Blocked by me
       <mat-icon style="color: rgb(183, 135, 144)">block</mat-icon>
     </div>
@@ -134,6 +135,55 @@
     </div>
   </div>
 
+
+
+  <!-- posts -->
+
+  <mat-divider style="margin-top: 1rem; margin-bottom: 1rem;"></mat-divider>
+  <mat-card-title>Posts</mat-card-title>
+  <div style="font-size: smaller">
+    <mat-divider style="background: rgb(255, 215, 215);"></mat-divider>
+    <div *ngFor="let post of posts">
+
+      <div style="text-align: right;">{{post?.date | date:'hh:mm dd.MM.yyyy'}}</div>
+
+      <div style="font-size: 1.4rem;">{{post?.title}}</div>
+
+      <div style="color: rgb(133, 133, 133);">
+        {{post?.content}}
+      </div>
+
+      <div *ngIf="post.image" style="max-width: 10rem; height: 6rem;"><img [src]="image" style="width: 100%" /></div>
+
+      <!-- comments -->
+      <mat-card-title style="color: rgb(124, 46, 105); font-size: large;">Comments</mat-card-title>
+      <div *ngFor="let c of post.comments">
+        {{c?.username}}: {{c?.comment}}
+        <div style="text-align: right;">{{c?.date | date:'hh:mm dd.MM.yyyy'}}</div>
+      </div>
+
+      <div *ngIf="userService.isLoggedIn() && (profile.username !== userService.getUsername()) && !isBlockedByMe">
+        <div>
+          <mat-form-field appearance="fill" style="font-size: small">
+            <mat-label>Add comment</mat-label>
+            <input matInput [(ngModel)]="newComment" required>
+          </mat-form-field>
+          <button mat-flat-button color="accent" [disabled]="!newComment" (click)="createComment(post._id)">
+            Add comment
+          </button>
+        </div>
+
+        <button mat-icon-button (click)="likePost(post._id)">
+          <mat-icon>thumb_up_alt</mat-icon> {{post?.like?.length}}
+        </button>
+        <button mat-icon-button (click)="dislikePost(post._id)">
+          <mat-icon>thumb_down_alt</mat-icon> {{post?.dislike?.length}}
+        </button>
+      </div>
+
+      <mat-divider style="background: rgb(255, 215, 215);"></mat-divider>
+    </div>
+  </div>
 
 
 
