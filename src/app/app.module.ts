@@ -24,7 +24,6 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { UserService } from './services/user.service';
 import { HomeComponent } from './components/home/home.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
-import { PostsComponent } from './components/posts/posts.component';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -45,7 +44,6 @@ import { PostsCreateComponent } from './components/posts-create/posts-create.com
     SignUpComponent,
     HomeComponent,
     NavigationBarComponent,
-    PostsComponent,
     ProfileViewComponent,
     ProfileSearchComponent,
     ProfileEditComponent,

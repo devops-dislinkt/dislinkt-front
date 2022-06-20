@@ -9,14 +9,6 @@
             </ul>
 
             <span style="flex: 1 1 auto"></span>
-
-            
-            <a class="nav-link" routerLink="/posts-create">
-                <button mat-button color="accent" *ngIf="isLoggedIn()">
-                    <mat-icon>add</mat-icon>
-                    Post
-                </button>
-            </a>
             
             <a class="nav-link" routerLink="/edit-profile">
                 <button id="userBtn" mat-icon-button color="accent" class="dropdown" *ngIf="isLoggedIn()">
