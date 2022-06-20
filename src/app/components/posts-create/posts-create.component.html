@@ -1,1 +1,64 @@
-<p>posts-create works!</p>
+<div>
+  <mat-card-header style="padding-bottom: 2rem;">
+    <mat-card-title>
+      What's on your mind...
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>title</mat-label>
+        <input matInput [(ngModel)]="post.title" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>content</mat-label>
+        <textarea matInput [(ngModel)]="post.content"></textarea>
+      </mat-form-field>
+    </div>
+
+    <!-- links -->
+    <mat-divider style="margin-top: 2rem; margin-bottom:2rem;"></mat-divider>
+
+    <div>
+      <mat-card-subtitle>Add Links</mat-card-subtitle>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>link</mat-label>
+      <input matInput [(ngModel)]="link">
+    </mat-form-field>
+    <button mat-icon-button color="accent" (click)="post.links.push(link); link='';">
+      <mat-icon>add</mat-icon>
+    </button>
+
+
+    <mat-list>
+      <div *ngFor="let link of post.links" [value]="link">
+        <mat-icon style="vertical-align: middle">link</mat-icon>
+        {{link}}
+      </div>
+    </mat-list>
+
+
+    <!-- images -->
+    <mat-form-field appearance="fill">
+      <mat-label>image link</mat-label>
+      <input matInput [(ngModel)]="image">
+    </mat-form-field>
+
+    <div style="max-width: 10rem; height: 6rem;">
+      <div *ngIf="image"><img [src]="image" style="width: 100%" /></div>
+      <div *ngIf="!image"> No image provided </div>
+    </div>    
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-flat-button color="accent" [disabled]="!post.title" (click)="createPost()"> 
+      <mat-icon>upload</mat-icon>
+      Post
+    </button>
+  </mat-card-actions>
+</div>

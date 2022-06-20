@@ -8,8 +8,8 @@ export class Post {
     username: string = '';
     title: string = '';
     content: string = '';
-    images: [] = [];
-    links: [] = [];
+    image: string;
+    links: string[] = [];
     like: [] = [];
     dislike: [] = [];
     comments: Comment[] = [];
