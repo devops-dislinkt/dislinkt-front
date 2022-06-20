@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from './user.service';
 import { Post } from '../model/post.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class PostsService {
   constructor(
     private http: HttpClient,
     private snackBar: MatSnackBar,
+    private router: Router,
     private authService: UserService
   ) { }
 
@@ -27,7 +29,7 @@ export class PostsService {
       console.log(post)
       const response = await this.http.post<number>(this.postPath, post, {headers}).toPromise()
       this.openSuccessSnackBar(`successfully created post: ${post.title}`)
-      return response 
+      this.router.navigate(['/'])
     } catch (error) {
       if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
       else this.openFailSnackBar()
