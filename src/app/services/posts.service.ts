@@ -10,12 +10,10 @@ import { Post } from '../model/post.model';
 })
 export class PostsService {
 
-  private path = 'http://localhost:8070/api';
-  private getPostsPath = this.path + '/list';
-  private likePostPath = this.path + '/like';
-  private dislikePostPath = this.path + '/dislike';
-  private addCommentPath = this.path + '/comment';
-  private addPostPath = this.path + '/add'
+  private postPath = 'http://localhost:8070/api/post';
+  private likePostPath = this.postPath + '/like';
+  private dislikePostPath = this.postPath + '/dislike';
+  private addCommentPath = this.postPath + '/comment';
 
   constructor(
     private http: HttpClient,
@@ -26,10 +24,10 @@ export class PostsService {
   async createPost(post: Post) {
     try {
       const headers = new HttpHeaders({'user': this.authService.getUsername()})
-      const data = {'post': post}
-      const response = await this.http.post(`${this.addPostPath}`, data, {headers}).toPromise()
+      console.log(post)
+      const response = await this.http.post<number>(this.postPath, post, {headers}).toPromise()
       this.openSuccessSnackBar(`successfully created post: ${post.title}`)
-      return response  
+      return response 
     } catch (error) {
       if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
       else this.openFailSnackBar()
@@ -38,7 +36,7 @@ export class PostsService {
 
   getPosts(): Observable<any> {
     console.log("get posts");
-    return this.http.get<any>(this.getPostsPath);
+    return this.http.get<Post[]>(this.postPath);
   }
 
   likePost(id: string): Observable<any> {

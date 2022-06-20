@@ -47,12 +47,12 @@
     <!-- images -->
     <mat-form-field appearance="fill">
       <mat-label>image link</mat-label>
-      <input matInput [(ngModel)]="image">
+      <input matInput [(ngModel)]="post.image">
     </mat-form-field>
 
     <div style="max-width: 10rem; height: 6rem;">
-      <div *ngIf="image"><img [src]="image" style="width: 100%" /></div>
-      <div *ngIf="!image"> No image provided </div>
+      <div *ngIf="post.image"><img [src]="image" style="width: 100%" /></div>
+      <div *ngIf="!post.image"> No image provided </div>
     </div>    
   </mat-card-content>
   <mat-card-actions>

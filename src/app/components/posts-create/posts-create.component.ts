@@ -11,7 +11,6 @@ export class PostsCreateComponent implements OnInit {
 
   post: Post = new Post()
   link: string
-  image: string
   constructor(
     private postService: PostsService,
   ) { }
