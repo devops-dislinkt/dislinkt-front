@@ -159,7 +159,7 @@
       <mat-card-title style="color: rgb(124, 46, 105); font-size: large;">Comments</mat-card-title>
       <div *ngFor="let c of post.comments">
         {{c?.username}}: {{c?.comment}}
-        <div style="text-align: right;">{{c?.date | date:'hh:mm dd.MM.yyyy'}}</div>
+        <div style="text-align: right; font-size: small;">{{c?.date | date:'hh:mm dd.MM.yyyy'}}</div>
       </div>
 
       <div *ngIf="userService.isLoggedIn() && (profile.username !== userService.getUsername()) && !isBlockedByMe">
@@ -173,10 +173,11 @@
           </button>
         </div>
 
-        <button mat-icon-button (click)="likePost(post._id)">
+        <!-- like & dislike -->
+        <button mat-icon-button (click)="likePost(post._id)" [disabled]="isPostLikedByMe(post) === true">
           <mat-icon>thumb_up_alt</mat-icon> {{post?.like?.length}}
         </button>
-        <button mat-icon-button (click)="dislikePost(post._id)">
+        <button mat-icon-button (click)="dislikePost(post._id)" [disabled]="isPostLikedByMe(post) === false">
           <mat-icon>thumb_down_alt</mat-icon> {{post?.dislike?.length}}
         </button>
       </div>
@@ -184,8 +185,5 @@
       <mat-divider style="background: rgb(255, 215, 215);"></mat-divider>
     </div>
   </div>
-
-
-
 
 </div>

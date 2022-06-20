@@ -10,8 +10,8 @@ export class Post {
     content: string = '';
     image: string;
     links: string[] = [];
-    like: [] = [];
-    dislike: [] = [];
+    like: string[] = []; // usernames that liked
+    dislike: string[] = []; // usernames that disliked
     comments: Comment[] = [];
     date: Date = new Date();
 }

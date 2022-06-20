@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 export class PostsService {
 
   private postPath = 'http://localhost:8070/api/post';
-  private likePostPath = this.postPath + '/like';
-  private dislikePostPath = this.postPath + '/dislike';
+  private likePostPath = 'http://localhost:8070/api/like';
+  private dislikePostPath = 'http://localhost:8070/api/dislike';
   private commentPath = 'http://localhost:8070/api/comment';
 
   constructor(
@@ -51,7 +51,7 @@ export class PostsService {
     }
   }
 
-  async createComment(postId: number, comment: string) {
+  async createComment(postId: string, comment: string) {
     try {
       const logged_in_username = this.authService.getUsername()
       const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
@@ -65,27 +65,38 @@ export class PostsService {
       return await this.http.post<any>(this.commentPath, data, { headers }).toPromise()
     } catch (error) {
       if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
-      // else this.openFailSnackBar()
-      throw error
+      else this.openFailSnackBar()
     }
   }
 
-  likePost(id: string): Observable<any> {
-    console.log("like posts = ", id);
-    let obj = {
-      "post_id": id,
-      "username": "username10"
+  async likePost(id: string) {
+    try {
+      const logged_in_username = this.authService.getUsername()
+      const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
+      let data = {
+        "post_id": id,
+        "username": logged_in_username
+      }
+      return this.http.post<any>(this.likePostPath, data, {headers}).toPromise()
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()      
     }
-    return this.http.post<any>(this.likePostPath, obj);
   }
 
-  dislikePost(id: string): Observable<any> {
-    console.log("dislike posts id = ", id);
-    let obj = {
-      "post_id": id,
-      "username": "username10"
+  async dislikePost(id: string) {
+    try {
+      const logged_in_username = this.authService.getUsername()
+      const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
+      let data = {
+        "post_id": id,
+        "username": logged_in_username
+      }
+      return this.http.post<any>(this.dislikePostPath, data, {headers}).toPromise()
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()      
     }
-    return this.http.post<any>(this.dislikePostPath, obj);
   }
 
 

@@ -46,9 +46,10 @@ export class ProfileViewComponent implements OnInit {
     // if profile public everything ok
     // if req not approved or profile blocked, posts cannot be seen
     this.posts = await this.postService.getPosts(username)
-    if (!this.profile.private) return
-    else if (this.followRequestStatus != 'APPROVED' || this.isBlockedByMe) this.posts = []
-
+    if (this.profile.private) {
+      (this.followRequestStatus != 'APPROVED' || this.isBlockedByMe) 
+        this.posts = [] 
+    }    
   }
 
   async follow() {
@@ -62,17 +63,23 @@ export class ProfileViewComponent implements OnInit {
     this.isBlockedByMe = await this.profileService.isProfileBlockedByMe(this.profile)
   }
 
-  async createComment(postId: number) {
+  async createComment(postId: string) {
     await this.postService.createComment(postId, this.newComment)
     this.posts = await this.postService.getPosts(this.profile.username)
 
   }
 
-  async likePost(postId: number) {
-
+  async likePost(postId: string) {
+    await this.postService.likePost(postId)
+    this.posts = await this.postService.getPosts(this.profile.username)
   }
-  async dislikePost(postId: number) {
-
+  async dislikePost(postId: string) {
+    await this.postService.dislikePost(postId)
+    this.posts = await this.postService.getPosts(this.profile.username)
   }
   
+  isPostLikedByMe(post: Post) {
+    console.log(post)
+    return post?.like?.some(like => like == this.userService.getUsername())
+  }
 }
