@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Profile } from '../model/profile.model';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private notificationService: NotificationService
   ) { }
 
   // TODO: FINISH TESTING
@@ -53,6 +55,7 @@ export class UserService {
       localStorage.setItem('username', decodedToken.username)
       this.openSuccessSnackBar(`successfully logged in.`)
       this.router.navigate(['/']);
+      this.notificationService.initSocketForNotifications(this.getUsername())
     }
     catch (error) {
       if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
