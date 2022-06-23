@@ -27,7 +27,7 @@ export class PostsService {
 
   async createPost(post: Post) {
     try {
-      const headers = new HttpHeaders({ 'user': this.authService.getUsername(), 'Authorization': 'Bearer ' + localStorage.getItem('token')}, )
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')}, )
       const response = await this.http.post<number>(this.postAddPath, post, { headers }).toPromise()
       this.openSuccessSnackBar(`successfully created post: ${post.title}`)
       this.router.navigate(['/'])
