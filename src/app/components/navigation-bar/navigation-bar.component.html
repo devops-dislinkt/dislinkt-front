@@ -5,15 +5,21 @@
             
             <span style="flex: 1 1 auto"></span>
 
-            <a class="nav-link" routerLink="/posts-create">
-                <button mat-button color="accent" *ngIf="isLoggedIn()">
+            <a class="nav-link" routerLink="/posts-create" *ngIf="isLoggedIn()">
+                <button mat-button color="accent" >
                     <mat-icon>add</mat-icon>
                     Post
                 </button>
             </a>
 
-            <a class="nav-link" routerLink="/edit-profile">
-                <button id="userBtn" mat-icon-button color="accent" class="dropdown" *ngIf="isLoggedIn()">
+            <a class="nav-link" routerLink="/messages" *ngIf="isLoggedIn()">
+                <button mat-icon-button color="accent" >
+                    <mat-icon class="material-icons-outlined">chat</mat-icon>
+                </button>
+            </a>
+
+            <a class="nav-link" routerLink="/edit-profile" *ngIf="isLoggedIn()">
+                <button id="userBtn" mat-icon-button color="accent" class="dropdown" >
                     <mat-icon>manage_accounts</mat-icon>
                 </button>
             </a>
