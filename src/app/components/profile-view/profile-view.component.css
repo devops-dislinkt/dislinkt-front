@@ -8,3 +8,7 @@
 mat-icon {
     color: indigo;
 }
+
+button:disabled mat-icon {
+    color: gray
+}

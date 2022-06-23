@@ -2,15 +2,16 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div id="navbarDiv" class="container-fluid">
             <a class="navbar-brand myFont" href="/"><i>Linkedin</i></a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/posts">Posts</a>
-                    </li>
-                </ul>
-            </div>
-
+            
             <span style="flex: 1 1 auto"></span>
+
+            <a class="nav-link" routerLink="/posts-create">
+                <button mat-button color="accent" *ngIf="isLoggedIn()">
+                    <mat-icon>add</mat-icon>
+                    Post
+                </button>
+            </a>
+
             <a class="nav-link" routerLink="/edit-profile">
                 <button id="userBtn" mat-icon-button color="accent" class="dropdown" *ngIf="isLoggedIn()">
                     <mat-icon>manage_accounts</mat-icon>

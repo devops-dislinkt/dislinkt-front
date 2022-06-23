@@ -24,7 +24,6 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { UserService } from './services/user.service';
 import { HomeComponent } from './components/home/home.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
-import { PostsComponent } from './components/posts/posts.component';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -36,6 +35,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { ProfileViewComponent } from './components/profile-view/profile-view.component';
 import { ProfileSearchComponent } from './components/profile-search/profile-search.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { PostsCreateComponent } from './components/posts-create/posts-create.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,10 +44,10 @@ import { ProfileEditComponent } from './components/profile-edit/profile-edit.com
     SignUpComponent,
     HomeComponent,
     NavigationBarComponent,
-    PostsComponent,
     ProfileViewComponent,
     ProfileSearchComponent,
     ProfileEditComponent,
+    PostsCreateComponent,
   ],
   imports: [
     BrowserModule,

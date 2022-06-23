@@ -8,10 +8,10 @@ export class Post {
     username: string = '';
     title: string = '';
     content: string = '';
-    images: [] = [];
-    links: [] = [];
-    like: [] = [];
-    dislike: [] = [];
+    image: string;
+    links: string[] = [];
+    like: string[] = []; // usernames that liked
+    dislike: string[] = []; // usernames that disliked
     comments: Comment[] = [];
     date: Date = new Date();
 }
