@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Comment, Post } from 'src/app/model/post.model';
 import { Profile } from 'src/app/model/profile.model';
 import { FollowService } from 'src/app/services/follow.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UserService } from 'src/app/services/user.service';
@@ -20,6 +21,7 @@ export class ProfileViewComponent implements OnInit {
   isBlockedByMe: boolean = false
   followRequestStatus: 'SENT' | 'NOT_SENT' | 'APPROVED'
 
+  notificationStatus: boolean
   newComment: string
 
   constructor(
@@ -28,6 +30,7 @@ export class ProfileViewComponent implements OnInit {
     public userService: UserService,
     private followService: FollowService,
     private postService: PostsService,
+    private notificationService: NotificationService
     ) { }
 
   async ngOnInit() {
@@ -82,4 +85,9 @@ export class ProfileViewComponent implements OnInit {
     console.log(post)
     return post?.like?.some(like => like == this.userService.getUsername())
   }
+
+  async toggleNotifications() {
+    this.notificationStatus = await this.notificationService.toggleNotifications(this.profile.username)
+  }
+
 }

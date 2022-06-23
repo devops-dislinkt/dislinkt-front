@@ -37,6 +37,10 @@
         <mat-icon style="color: crimson">block</mat-icon>
         block
       </button>
+
+      <button mat-button (click)="toggleNotifications()" *ngIf="!isBlockedByMe">
+        <mat-icon  class="material-icons-outlined" style="color: rgb(220, 160, 20)">notifications</mat-icon>
+      </button>
     </div>
 
     <div *ngIf="isBlockedByMe"

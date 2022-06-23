@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Profile } from '../model/profile.model';
-import { NotificationService } from './notification.service';
+import { io } from "socket.io-client";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,6 @@ export class UserService {
     private http: HttpClient,
     private router: Router,
     private snackBar: MatSnackBar,
-    private notificationService: NotificationService
   ) { }
 
   // TODO: FINISH TESTING
@@ -55,12 +54,26 @@ export class UserService {
       localStorage.setItem('username', decodedToken.username)
       this.openSuccessSnackBar(`successfully logged in.`)
       this.router.navigate(['/']);
-      this.notificationService.initSocketForNotifications(this.getUsername())
+      this.setupNotifications()
     }
     catch (error) {
       if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
       else this.openFailSnackBar()
     }
+  }
+
+  private setupNotifications() {
+    const socket = io("ws://localhost:8080", { path: '/notification' });
+
+    socket.on("new-post", (message) => {
+      console.log("TU SAM", message)
+      const por = `${message['username']} created new post: ${message['title']}.`
+      this.openSuccessSnackBar(por)
+    })
+
+    socket.on("connected-response", () => {
+      socket.emit('username', this.getUsername());
+    })
   }
 
   logout(): void {
