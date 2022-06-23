@@ -7,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagesComponent implements OnInit {
 
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+  friends: string[] = ['perapera', 'mikamika', 'djuradjura'];
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  setChatWith(friend: string) {
+    console.log(friend)
   }
 
 }

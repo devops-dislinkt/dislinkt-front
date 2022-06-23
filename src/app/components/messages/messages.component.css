@@ -1,19 +1,23 @@
+#messages {
+
+    display: flex; 
+    flex-direction: column-reverse; 
+    overflow: auto;
+    max-height: 60vh;
+}
 .container {
     background-color: #f1f1f1;
     border-radius: 5px;
     margin: 10px 0;
-    width: 70%;
+    width: fit-content;
 }
 
 .me {
     background-color: rgb(175, 226, 247);
-    margin-left: 8.5rem;
-    text-align: right;
-
+    align-self: flex-end;
 }
 .friend {
-    margin-right: 0.5rem;
-    align-items: flex-start;
+    align-self: flex-start;
 
 }
 
@@ -29,17 +33,29 @@ display: table;
 }
   
 .time-right {
-float: right;
-text-align: right;
 color: #aaa;
 font-size: small;
 }
 
 .time-left {
-float: left;
-text-align: left;
-
 color: #999;
 font-size: small;
 
+}
+
+mat-form-field {
+    width: 100%;
+    text-align: left;
+    font-size: smaller;
+    padding: 0;
+}
+::ng-deep .mat-form-field-wrapper {
+    padding: 0;
+}
+::ng-deep .mat-form-field-outline-start {
+    border-radius: 10px 0 0 10px !important;
+    min-width: 10px !important;
+  }
+::ng-deep .mat-form-field-outline-end {
+    border-radius: 0 10px 10px 0 !important;
 }
