@@ -11,10 +11,12 @@ import { Router } from '@angular/router';
 })
 export class PostsService {
 
-  private postPath = 'http://localhost:8070/api/post';
-  private likePostPath = 'http://localhost:8070/api/like';
-  private dislikePostPath = 'http://localhost:8070/api/dislike';
-  private commentPath = 'http://localhost:8070/api/comment';
+  private postPath = 'http://localhost:8080/api/post';
+  private postAddPath = 'http://localhost:8080/api/post/add';
+
+  private likePostPath = 'http://localhost:8080/api/post/like';
+  private dislikePostPath = 'http://localhost:8080/api/post/dislike';
+  private commentPath = 'http://localhost:8080/api/post/comment';
 
   constructor(
     private http: HttpClient,
@@ -25,8 +27,8 @@ export class PostsService {
 
   async createPost(post: Post) {
     try {
-      const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
-      const response = await this.http.post<number>(this.postPath, post, { headers }).toPromise()
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')}, )
+      const response = await this.http.post<number>(this.postAddPath, post, { headers }).toPromise()
       this.openSuccessSnackBar(`successfully created post: ${post.title}`)
       this.router.navigate(['/'])
     } catch (error) {

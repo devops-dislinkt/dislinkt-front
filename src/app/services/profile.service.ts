@@ -11,8 +11,8 @@ import { UserService } from './user.service';
 export class ProfileService {
 
 
-  private profilePublicPath = 'http://localhost:5000';
-  private profilePrivatePath = 'http://localhost:5000/api'
+  private profilePublicPath = 'http://localhost:8080';
+  private profilePrivatePath = 'http://localhost:8080/api'
   // headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + this.getToken()});
 
 
@@ -25,7 +25,7 @@ export class ProfileService {
     
   async blockProfile(profile: Profile) {
     try {
-      const headers = new HttpHeaders({'user': this.authService.getUsername()})
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const data = {'profile_to_block': profile.username}
       const response = await this.http.put(`${this.profilePrivatePath}/profile/block`, data, {headers}).toPromise()
       this.openSuccessSnackBar(`successfully blocked: ${profile.username}`)
@@ -39,7 +39,7 @@ export class ProfileService {
   async isProfileBlockedByMe(profile: Profile) {
     try {
       if (!this.authService.isLoggedIn()) return false;
-      const headers = new HttpHeaders({'user': this.authService.getUsername()})
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const response = await this.http.get<boolean>(`${this.profilePrivatePath}/profile/is-blocked-by-me/${profile.username}`, {headers}).toPromise()
       return response  
     } catch (error) {
@@ -51,7 +51,7 @@ export class ProfileService {
   
   async updateEducation(education: Education) {
     try {
-      const headers = new HttpHeaders({'user': this.authService.getUsername()})
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const response = await this.http.put(`${this.profilePrivatePath}/profile/education`, education, {headers}).toPromise()
       this.openSuccessSnackBar(`successfully updated education.`)
       return response
@@ -64,7 +64,7 @@ export class ProfileService {
 
   async updateWorkExperience(workExperience: WorkExperience) {
     try {
-      const headers = new HttpHeaders({'user': this.authService.getUsername()})
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const response = await this.http.put(`${this.profilePrivatePath}/profile/work-experience`, workExperience, {headers}).toPromise()
       this.openSuccessSnackBar(`successfully updated work experience.`)
       return response
@@ -75,7 +75,7 @@ export class ProfileService {
   }
   async updateBasicInfo(profile: Profile) {
     try {
-      const headers = new HttpHeaders({ 'user': profile.username })
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const response = await this.http.put(`${this.profilePrivatePath}/profile/basic-info`, profile, { headers }).toPromise()
       this.openSuccessSnackBar(`successfully updated.`)
       return response
@@ -89,7 +89,7 @@ export class ProfileService {
     try {
       const logged_in_username = this.authService.getUsername()
       if (logged_in_username) {
-        const headers = new HttpHeaders({ 'user': logged_in_username })
+        const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
         return await this.http.get<Profile>(`${this.profilePublicPath}/profile/details/${username}`, { headers: headers }).toPromise();
       }
       else {
@@ -107,7 +107,7 @@ export class ProfileService {
     try {
       const logged_in_username = this.authService.getUsername()
       if (logged_in_username) {
-        const headers = new HttpHeaders({ 'user': logged_in_username })
+        const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
         return await this.http.get<Profile[]>(`${this.profilePublicPath}/profile/search?username=${searchString}`, { headers }).toPromise()
       }
       else {

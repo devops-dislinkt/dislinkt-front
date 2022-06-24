@@ -66,8 +66,8 @@ export class UserService {
     const socket = io("ws://localhost:8080", { path: '/notification' });
 
     socket.on("new-post", (message) => {
-      console.log("TU SAM", message)
-      const por = `${message['username']} created new post: ${message['title']}.`
+      message = JSON.parse(message)
+      const por = `${message['username']} created new post: ${message['post_title']}.`
       this.openSuccessSnackBar(por)
     })
 
