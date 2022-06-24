@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-messages',
@@ -8,13 +9,20 @@ import { Component, OnInit } from '@angular/core';
 export class MessagesComponent implements OnInit {
 
   friends: string[] = ['perapera', 'mikamika', 'djuradjura'];
-  constructor() { }
+  constructor(
+    private messagesService: MessagesService
+  ) { }
 
   ngOnInit(): void {
   }
 
   setChatWith(friend: string) {
     console.log(friend)
+  }
+
+  sendMessage() {
+    this.messagesService.sendMessage('mikamika', 'hello from perapera')
+
   }
 
 }
