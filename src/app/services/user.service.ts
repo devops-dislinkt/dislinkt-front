@@ -14,8 +14,6 @@ import { io } from "socket.io-client";
 export class UserService {
 
   authPath = 'http://localhost:8080/api';
-  // headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + this.getToken()});
-  headers = new HttpHeaders({'user': this.getUsername()})
 
   constructor(
     private http: HttpClient,
@@ -23,7 +21,6 @@ export class UserService {
     private snackBar: MatSnackBar,
   ) { }
 
-  // TODO: FINISH TESTING
   async updateUsername(profile: Profile) {
     try {
       await this.http.put(`${this.authPath}/users/username`, profile).toPromise()
