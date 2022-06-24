@@ -1,29 +1,54 @@
 <div style="display: flex;">
-  <div style="border-right-style: groove; padding-right: 0.2rem; width: 8rem">
-    <mat-selection-list #shoes [multiple]="false">
-      <mat-list-option *ngFor="let friend of friends" [value]="friend" (click)="setChatWith(friend)">
+  <!-- left part - chats -->
+
+  <div style="border-right-style: groove; padding-right: 0.2rem; width: 8rem; font-size: small;">
+    <div>
+      <form [formGroup]="searchForm" (submit)="search()" >
+        <mat-form-field appearance="outline">
+          <input matInput formControlName="search" placeholder="Search" autocomplete="off">
+        </mat-form-field>
+      </form>
+      <mat-selection-list [multiple]="false">
+        <mat-list-option *ngFor="let profile of profiles" [value]="profile" (click)="addFriend(profile.username)"  style="font-size: small; background: rgba(76, 0, 130, 0.064);">
+          <!-- name & surname -->
+          <span style="font-weight: 500; color: indigo">
+            {{profile.username}}
+          </span>
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+
+    <mat-divider style="margin-top: 1rem; margin-bottom:1rem;"></mat-divider>
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let friend of friends" [value]="friend" (click)="setChatWith(friend)" style="font-size: small;">
         {{friend}}
       </mat-list-option>
     </mat-selection-list>
-    
   </div>
 
+  <!-- right part - messages -->
   <div id="messages-wrapper">
-    <mat-card-title>Messages</mat-card-title>
+    <mat-card-title>Messages 
+      <span *ngIf="chatWith" style="color: indigo; font-size: small">with {{chatWith}}</span>
+    </mat-card-title>
 
-    <div >
-      <div  id="messages" >
-        <div *ngFor="let msg of messages" class="container" [ngClass]="{'me': msg.from === myUsername, 'friend': msg.from !== myUsername}">
-          <p>{{msg.value}}</p>
+    <div>
+      <div id="messages">
+        <div *ngFor="let msg of messages" class="container"
+          [ngClass]="{'me': msg.from === myUsername, 'friend': msg.from !== myUsername}">
+          <p *ngIf="(msg.from == myUsername && msg.to_whom ==chatWith) || chatWith == msg.from">
+            {{msg.value}}
+          </p>
         </div>
       </div>
-  
+
       <div id="send-msg" style="display: flex; align-items: center">
         <mat-form-field appearance="outline">
-          <input matInput [(ngModel)]="newMsg" placeholder="Type message..." autocomplete="off" (keyup.enter)="sendMessage()">
+          <input matInput [(ngModel)]="newMsg" placeholder="Type message..." autocomplete="off"
+            (keyup.enter)="sendMessage()">
         </mat-form-field>
-  
-        <button mat-icon-button color="accent" (click)="sendMessage()" [disabled]="!newMsg">
+
+        <button mat-icon-button color="accent" (click)="sendMessage()" [disabled]="!newMsg || !chatWith">
           <mat-icon>send</mat-icon>
         </button>
       </div>
