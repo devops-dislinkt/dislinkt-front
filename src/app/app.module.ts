@@ -36,6 +36,7 @@ import { ProfileViewComponent } from './components/profile-view/profile-view.com
 import { ProfileSearchComponent } from './components/profile-search/profile-search.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 import { PostsCreateComponent } from './components/posts-create/posts-create.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { PostsCreateComponent } from './components/posts-create/posts-create.com
     ProfileSearchComponent,
     ProfileEditComponent,
     PostsCreateComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
