@@ -18,8 +18,23 @@ export class NotificationService {
 
   async toggleNotifications(username: string) {
     try {
-      const path = `localhost:8091/api/notifications/${username}`
-      const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
+      const path = `http://localhost:8080/api/notifications/${username}`
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
+      const response = await this.http.post(path, { headers }).toPromise()
+      return response
+    }
+    catch (error) {
+      if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
+      else this.openFailSnackBar()
+      throw error
+    }
+
+  }
+
+  async isNotificationsTurnedOn(username: string) {
+    try {
+      const path = `http://localhost:8080/api/notifications/${username}`
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const response = await this.http.get<boolean>(path, { headers }).toPromise()
       return response
     }

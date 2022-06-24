@@ -21,7 +21,7 @@ export class ProfileViewComponent implements OnInit {
   isBlockedByMe: boolean = false
   followRequestStatus: 'SENT' | 'NOT_SENT' | 'APPROVED'
 
-  notificationStatus: boolean
+  isNotificationsTurnedOn: boolean
   newComment: string
 
   constructor(
@@ -52,7 +52,10 @@ export class ProfileViewComponent implements OnInit {
     if (this.profile.private) {
       (this.followRequestStatus != 'APPROVED' || this.isBlockedByMe) 
         this.posts = [] 
-    }    
+    }
+
+    // check if notifications is turned on
+    this.isNotificationsTurnedOn = await this.notificationService.isNotificationsTurnedOn(username)
   }
 
   async follow() {
@@ -82,12 +85,12 @@ export class ProfileViewComponent implements OnInit {
   }
   
   isPostLikedByMe(post: Post) {
-    console.log(post)
     return post?.like?.some(like => like == this.userService.getUsername())
   }
 
   async toggleNotifications() {
-    this.notificationStatus = await this.notificationService.toggleNotifications(this.profile.username)
+    await this.notificationService.toggleNotifications(this.profile.username)
+    this.isNotificationsTurnedOn = await this.notificationService.isNotificationsTurnedOn(this.profile.username)
   }
 
 }

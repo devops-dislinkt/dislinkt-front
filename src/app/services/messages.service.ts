@@ -14,7 +14,7 @@ export class MessagesService {
   constructor(
     private authService: UserService
   ) {
-    this.socket.on('connect', () => this.socket.emit('username', 'perapera'))
+    this.socket.on('connect', () => this.socket.emit('username', authService.getUsername()))
     this.socket.on( 'response', function( msg ) {
       console.log( msg )
       console.log(msg.from)    

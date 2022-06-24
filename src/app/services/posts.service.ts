@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from './user.service';
 import { Post } from '../model/post.model';
@@ -42,10 +41,10 @@ export class PostsService {
       const logged_in_username = this.authService.getUsername()
       if (logged_in_username) {
         const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
-        return await this.http.get<Post[]>(`${this.postPath}/${username}`, { headers }).toPromise()
+        return await this.http.get<Post[]>(`http://localhost:8080/post/${username}`, { headers }).toPromise()
       }
       else {
-        return await this.http.get<Post[]>(`${this.postPath}/${username}`).toPromise()
+        return await this.http.get<Post[]>(`http://localhost:8080/post/${username}`).toPromise()
       }
     } catch (error) {
       if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
