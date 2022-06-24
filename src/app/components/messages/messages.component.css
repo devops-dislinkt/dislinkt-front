@@ -1,9 +1,18 @@
-#messages {
+#messages-wrapper {
+    min-width: 10rem; 
+    padding: 1rem; 
+    width: -webkit-fill-available; 
+    height: calc(100vh - 200px);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 
+}
+#messages {
     display: flex; 
     flex-direction: column-reverse; 
     overflow: auto;
-    max-height: 60vh;
+    height: calc(100vh - 330px);
 }
 .container {
     background-color: #f1f1f1;
@@ -32,16 +41,6 @@ display: table;
     margin: 0;
 }
   
-.time-right {
-color: #aaa;
-font-size: small;
-}
-
-.time-left {
-color: #999;
-font-size: small;
-
-}
 
 mat-form-field {
     width: 100%;

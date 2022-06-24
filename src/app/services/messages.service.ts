@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { io } from "socket.io-client";
 import { UserService } from './user.service';
 
@@ -11,33 +11,16 @@ export class MessagesService {
 
   socket = io("ws://localhost:8080", { path: '/messages' });
 
+  msgReceived = new EventEmitter<{'from': string, 'value': string}>()
+
   constructor(
     private authService: UserService
   ) {
     this.socket.on('connect', () => this.socket.emit('username', authService.getUsername()))
-    this.socket.on( 'response', function( msg ) {
-      console.log( msg )
-      console.log(msg.from)    
-    })
+    this.socket.on( 'response', ( msg:{'from': string, 'value': string} ) => this.msgReceived.emit(msg))
   }
 
-  sendMessage(friendUsername: string, message: string) {
-    console.log('sending')
-    this.socket.emit('new-message', {
-      to_whom: friendUsername,
-      message: message
-    })
+  sendMessage(msg: {'to_whom': string, 'message': string}) {
+    this.socket.emit('new-message', msg)
   }
-
-  receiveMessage(msg: any) {
-    console.log('received')
-    console.log(msg)
-    console.log(msg.jsonParse())
-  }
-
-}
-
-type message = {
-  from: string
-  value: string
 }

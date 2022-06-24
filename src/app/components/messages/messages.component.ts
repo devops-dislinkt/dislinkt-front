@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from 'src/app/services/messages.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-messages',
@@ -8,12 +9,18 @@ import { MessagesService } from 'src/app/services/messages.service';
 })
 export class MessagesComponent implements OnInit {
 
+  myUsername: string
+  messages: {'from': string, 'value': string}[] = []
+  newMsg = ''
   friends: string[] = ['perapera', 'mikamika', 'djuradjura'];
   constructor(
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private authService: UserService
   ) { }
 
   ngOnInit(): void {
+    this.messagesService.msgReceived.subscribe(msg => this.receiveMessage(msg))
+    this.myUsername = this.authService.getUsername()
   }
 
   setChatWith(friend: string) {
@@ -21,8 +28,14 @@ export class MessagesComponent implements OnInit {
   }
 
   sendMessage() {
-    this.messagesService.sendMessage('mikamika', 'hello from perapera')
+    const msg = { 'to_whom': 'mikamika', 'message': this.newMsg }
+    this.messagesService.sendMessage(msg)
+    this.messages.unshift({'from': this.myUsername, 'value': this.newMsg})
+    this.newMsg = '' // clear content
+  }
 
+  receiveMessage(msg: {'from': string, 'value': string}) {
+    this.messages.unshift(msg)
   }
 
 }

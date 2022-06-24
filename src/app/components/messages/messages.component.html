@@ -8,53 +8,27 @@
     
   </div>
 
-  <div style="    min-width: 10rem; padding: 1rem; ">
+  <div id="messages-wrapper">
     <mat-card-title>Messages</mat-card-title>
 
-    <div id="messages" >
-      <div class="container friend">
-        <p>Hello. How are you today?</p>
-        <span class="time-right">11:00</span>
-      </div>
-      
-      <div class="container me">
-        <p>Hey! I'm fine. Thanks for asking!</p>
-        <span class="time-left">11:01</span>
-      </div>
-      
-      <div class="container friend">
-        <p>Sweet! So, what do you wanna do today?</p>
-        <span class="time-right">11:02</span>
-      </div>
-      
-      <div class="container me">
-        <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-        <span class="time-left">11:05</span>
+    <div >
+      <div  id="messages" >
+        <div *ngFor="let msg of messages" class="container" [ngClass]="{'me': msg.from === myUsername, 'friend': msg.from !== myUsername}">
+          <p>{{msg.value}}</p>
+        </div>
       </div>
   
-      <div class="container friend">
-        <p>Sweet! So, what do you wanna do today?</p>
-        <span class="time-right">11:02</span>
-      </div>
-      <div class="container friend">
-        <p>Sweet! So, what do you wanna do today?</p>
-        <span class="time-right">11:02</span>
-      </div>
-      <div class="container friend">
-        <p>Sweet! So, what do you wanna do today?</p>
-        <span class="time-right">11:02</span>
+      <div id="send-msg" style="display: flex; align-items: center">
+        <mat-form-field appearance="outline">
+          <input matInput [(ngModel)]="newMsg" placeholder="Type message..." autocomplete="off" (keyup.enter)="sendMessage()">
+        </mat-form-field>
+  
+        <button mat-icon-button color="accent" (click)="sendMessage()" [disabled]="!newMsg">
+          <mat-icon>send</mat-icon>
+        </button>
       </div>
     </div>
 
-    <div id="send-msg" style="display: flex; align-items: center">
-      <mat-form-field appearance="outline">
-        <input matInput  placeholder="Type message..." autocomplete="off">
-      </mat-form-field>
-
-      <button mat-icon-button color="accent" (click)="sendMessage()">
-        <mat-icon>send</mat-icon>
-      </button>
-    </div>
   </div>
 
 </div>
