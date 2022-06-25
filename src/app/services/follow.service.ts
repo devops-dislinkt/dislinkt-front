@@ -32,7 +32,7 @@ export class FollowService {
 
   async getAllFollowing(approved: boolean) {
     try {
-      const headers = new HttpHeaders({'user': this.authService.getUsername()})
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const response = await this.http.get<any[]>(`${this.profilePrivatePath}/profile/following?approved=${approved}`, {headers}).toPromise()
       return response
     } catch (error) {
@@ -43,11 +43,11 @@ export class FollowService {
 
   async followProfile(profile: Profile) {
     try {
-      const headers = new HttpHeaders({'user': this.authService.getUsername()})
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const data = {'user_to_follow': profile.username}
       await this.http.post(`${this.profilePrivatePath}/profile/follow`, data, {headers}).toPromise()
     } catch (error) {
-      throw error
+      // throw error
       // if (error instanceof HttpErrorResponse) this.openFailSnackBar(error.error)
       // else this.openFailSnackBar()
     }
@@ -55,7 +55,7 @@ export class FollowService {
 
   async resolveFollowRequest(profile: Profile, reject: boolean ) {
     try {
-      const headers = new HttpHeaders({'user': this.authService.getUsername()})
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const data = {
         'follower_id': profile.id, 
         'reject': ()=> reject ?  'true' : 'false'

@@ -26,7 +26,7 @@ export class PostsService {
 
   async createPost(post: Post) {
     try {
-      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')}, )
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const response = await this.http.post<number>(this.postAddPath, post, { headers }).toPromise()
       this.openSuccessSnackBar(`successfully created post: ${post.title}`)
       this.router.navigate(['/'])
@@ -40,7 +40,7 @@ export class PostsService {
     try {
       const logged_in_username = this.authService.getUsername()
       if (logged_in_username) {
-        const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
+        const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
         return await this.http.get<Post[]>(`http://localhost:8080/post/${username}`, { headers }).toPromise()
       }
       else {
@@ -55,7 +55,7 @@ export class PostsService {
   async createComment(postId: string, comment: string) {
     try {
       const logged_in_username = this.authService.getUsername()
-      const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       const data = {
         'post_id': postId,
         'username': logged_in_username,
@@ -73,7 +73,7 @@ export class PostsService {
   async likePost(id: string) {
     try {
       const logged_in_username = this.authService.getUsername()
-      const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       let data = {
         "post_id": id,
         "username": logged_in_username
@@ -88,7 +88,7 @@ export class PostsService {
   async dislikePost(id: string) {
     try {
       const logged_in_username = this.authService.getUsername()
-      const headers = new HttpHeaders({ 'user': this.authService.getUsername() })
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('token')})
       let data = {
         "post_id": id,
         "username": logged_in_username
